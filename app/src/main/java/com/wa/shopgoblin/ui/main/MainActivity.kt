@@ -9,6 +9,9 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -18,6 +21,7 @@ import org.koin.androidx.compose.koinViewModel
 import org.koin.compose.koinInject
 
 class MainActivity : ComponentActivity() {
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
@@ -27,7 +31,7 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    FactoryInject("Android")
+                    ViewModelDatabase()
                 }
             }
         }
@@ -53,6 +57,17 @@ fun GreetingPreview() {
 @Composable
 fun ViewModelInject(userName: String, viewModel: UserViewModel = koinViewModel()) {
     Text(text = viewModel.sayHello(userName), modifier = Modifier.padding(8.dp))
+}
+
+@Composable
+fun ViewModelDatabase(viewModel: UserViewModel = koinViewModel()) {
+    val helloText by viewModel.helloText.collectAsState()
+
+    LaunchedEffect(Unit) {
+        viewModel.addData()
+    }
+
+    Text(text = helloText, modifier = Modifier.padding(8.dp))
 }
 
 @Composable
