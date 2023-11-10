@@ -70,11 +70,19 @@ dependencies {
     debugImplementation("androidx.compose.ui:ui-test-manifest")
 
     val koin = "3.5.0"
+    val room = "2.6.0"
+    val material3 = "1.2.0-alpha10"
+    val navigation = "2.5.0"
     implementation("io.insert-koin:koin-androidx-compose:$koin")
     testImplementation("io.insert-koin:koin-test-junit4:$koin")
 
-    val room = "2.6.0"
+
     implementation("androidx.room:room-runtime:$room")
     annotationProcessor("androidx.room:room-compiler:$room")
     kapt("androidx.room:room-compiler:$room")
+
+    implementation("androidx.compose.material3:material3:$material3")
+    implementation("androidx.compose.material3:material3-window-size-class:$material3")
+
+    implementation("androidx.navigation:navigation-compose:$navigation")
 }
