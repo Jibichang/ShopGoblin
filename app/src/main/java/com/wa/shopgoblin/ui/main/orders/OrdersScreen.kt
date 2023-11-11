@@ -1,4 +1,4 @@
-package com.wa.shopgoblin.ui.main.home
+package com.wa.shopgoblin.ui.main.orders
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -10,12 +10,11 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun HomeScreen(
-    onClick: () -> Unit = {}
+fun OrdersScreen(
+    onClick: (String) -> Unit = {}
 ) {
     Surface(
         modifier = Modifier.fillMaxSize(),
@@ -29,16 +28,10 @@ fun HomeScreen(
             verticalArrangement = Arrangement.Center
         ) {
             Text(
-                "Home Screen",
+                "Orders Screen",
                 style = MaterialTheme.typography.titleLarge,
                 modifier = Modifier.padding(vertical = 20.dp)
             )
         }
     }
-}
-
-@Preview(showBackground = true)
-@Composable
-fun HomeNavigationPreview() {
-    HomeScreen()
 }

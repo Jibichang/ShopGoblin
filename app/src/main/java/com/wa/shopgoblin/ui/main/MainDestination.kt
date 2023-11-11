@@ -1,42 +1,42 @@
-package com.wa.shopgoblin.ui.main.bottom
+package com.wa.shopgoblin.ui.main
 
 import com.wa.shopgoblin.R
 
-interface BottomNavItem {
+interface MainDestination {
     val title: Int
     val icon: Int
     val route: String
 }
 
-object Home : BottomNavItem {
+object Home : MainDestination {
     override val title = R.string.home_nav_title
     override val icon = R.drawable.home_nav
     override val route: String
         get() = "home"
 }
 
-object Cart : BottomNavItem {
+object Cart : MainDestination {
     override val title = R.string.cart_nav_title
     override val icon = R.drawable.cart_nav
     override val route: String
         get() = "cart"
 }
 
-object Orders : BottomNavItem {
+object Orders : MainDestination {
     override val title = R.string.orders_nav_title
     override val icon = R.drawable.order_nav
     override val route: String
         get() = "orders"
 }
 
-object Wallet : BottomNavItem {
+object Wallet : MainDestination {
     override val title = R.string.wallet_nav_title
     override val icon = R.drawable.wallet_nav
     override val route: String
         get() = "wallet"
 }
 
-object Profile : BottomNavItem {
+object Profile : MainDestination {
     override val title = R.string.profile_nav_title
     override val icon = R.drawable.peofile_nav
     override val route: String
