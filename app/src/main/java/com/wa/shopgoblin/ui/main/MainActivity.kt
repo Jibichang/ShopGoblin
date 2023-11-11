@@ -5,9 +5,7 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -47,10 +45,10 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 fun ViewModelDatabase(viewModel: UserViewModel = koinViewModel()) {
-    val helloText by viewModel.helloText.collectAsState()
+    val helloText by viewModel.username.collectAsState()
 
     LaunchedEffect(Unit) {
-        viewModel.addData()
+        viewModel.getUserData()
     }
 
     Text(text = helloText, modifier = Modifier.padding(8.dp))

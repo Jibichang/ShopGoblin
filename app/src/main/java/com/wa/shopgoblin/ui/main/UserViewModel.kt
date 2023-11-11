@@ -11,14 +11,14 @@ import kotlinx.coroutines.launch
 
 class UserViewModel(private val userDao: UserDao) : ViewModel() {
 
-    private val _helloText = MutableStateFlow("")
-    val helloText: StateFlow<String> = _helloText
+    private val _userName = MutableStateFlow("")
+    val username: StateFlow<String> = _userName
 
-    fun sayHello(user: User): String {
+    private fun sayHello(user: User): String {
         return  "${user.firstName} ${user.lastName}"
     }
 
-    fun addData() {
+    fun getUserData() {
         CoroutineScope(Dispatchers.IO).launch {
             val firstName = "Warunee"
             val lastName = "Khammak"
@@ -28,7 +28,7 @@ class UserViewModel(private val userDao: UserDao) : ViewModel() {
 
             val user = userDao.findByName(firstName, lastName)
 
-            _helloText.value = sayHello(user)
+            _userName.value = sayHello(user)
         }
     }
 }
