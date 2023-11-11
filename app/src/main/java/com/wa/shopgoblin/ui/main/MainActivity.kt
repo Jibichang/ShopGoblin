@@ -46,11 +46,6 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-fun ViewModelInject(userName: String, viewModel: UserViewModel = koinViewModel()) {
-    Text(text = viewModel.sayHello(userName), modifier = Modifier.padding(8.dp))
-}
-
-@Composable
 fun ViewModelDatabase(viewModel: UserViewModel = koinViewModel()) {
     val helloText by viewModel.helloText.collectAsState()
 
@@ -79,7 +74,7 @@ fun MainApp() {
     val navController = rememberNavController()
     val currentBackStack by navController.currentBackStackEntryAsState()
     val currentDestination = currentBackStack?.destination
-    val currentScreen = bottomNavigationScreens.find {
+    val currentScreen = allScreens.find {
         it.route == currentDestination?.route } ?: Home
 
     Scaffold(

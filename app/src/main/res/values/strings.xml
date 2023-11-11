@@ -5,4 +5,6 @@
     <string name="orders_nav_title">Orders</string>
     <string name="wallet_nav_title">Wallet</string>
     <string name="profile_nav_title">Profile</string>
+    <string name="notification_title">Notification</string>
+    <string name="favorite_title">Favorite</string>
 </resources>

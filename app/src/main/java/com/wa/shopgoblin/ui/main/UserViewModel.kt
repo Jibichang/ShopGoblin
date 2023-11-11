@@ -14,8 +14,8 @@ class UserViewModel(private val userDao: UserDao) : ViewModel() {
     private val _helloText = MutableStateFlow("")
     val helloText: StateFlow<String> = _helloText
 
-    fun sayHello(name: String): String {
-        return  "Hello '$name'"
+    fun sayHello(user: User): String {
+        return  "${user.firstName} ${user.lastName}"
     }
 
     fun addData() {
@@ -23,10 +23,10 @@ class UserViewModel(private val userDao: UserDao) : ViewModel() {
             val firstName = "Warunee"
             val lastName = "Khammak"
 
-            val entities = User(firstName = firstName, lastName = lastName)
-            userDao.insertAll(entities)
+//            val entities = User(firstName = firstName, lastName = lastName)
+//            userDao.insertAll(entities)
 
-            val user = userDao.findByName(firstName, lastName).firstName ?: "Android"
+            val user = userDao.findByName(firstName, lastName)
 
             _helloText.value = sayHello(user)
         }

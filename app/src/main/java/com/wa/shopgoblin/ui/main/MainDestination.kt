@@ -1,6 +1,7 @@
 package com.wa.shopgoblin.ui.main
 
 import com.wa.shopgoblin.R
+import com.wa.shopgoblin.ui.main.home.UserStatusDestination
 
 interface MainDestination {
     val title: Int
@@ -43,5 +44,22 @@ object Profile : MainDestination {
         get() = "profile"
 }
 
+object Notification : MainDestination {
+    override val title = R.string.notification_title
+    override val icon = R.drawable.home_bell_icon
+    override val route: String
+        get() = "notification"
+}
+
+object Favorite : MainDestination {
+    override val title = R.string.favorite_title
+    override val icon = R.drawable.home_favorite_icon
+    override val route: String
+        get() = "favorite"
+}
+
 // Screens to be displayed in the bottom navigation
 val bottomNavigationScreens = listOf(Home, Cart, Orders, Wallet, Profile)
+
+// Screens to be displayed in the bottom navigation
+val allScreens = listOf(Home, Cart, Orders, Wallet, Profile, Notification, Favorite)
