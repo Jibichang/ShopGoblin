@@ -5,6 +5,11 @@
     <string name="orders_nav_title">Orders</string>
     <string name="wallet_nav_title">Wallet</string>
     <string name="profile_nav_title">Profile</string>
+
+
     <string name="notification_title">Notification</string>
     <string name="favorite_title">Favorite</string>
+    <string name="home_special_title">Special Offers</string>
+    <string name="home_popular_title">Most Popular</string>
+    <string name="home_special_all_title">See All</string>
 </resources>

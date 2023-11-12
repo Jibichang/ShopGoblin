@@ -16,10 +16,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.wa.shopgoblin.R
-import com.wa.shopgoblin.ui.theme.ShopGoblinTheme
 
 val tabHeight = 56.dp
 
@@ -68,11 +66,17 @@ fun UserStatusBar(
             modifier = modifier.size(24.dp),
             onClick = onFavoriteClick
         ) {
-            Icon(
-                painter = painterResource(id = Favorite.icon),
-                contentDescription = Favorite.route,
-                tint = MaterialTheme.colorScheme.primary
-            )
+            FavoriteIcon()
         }
     }
+}
+
+@Composable
+fun FavoriteIcon(modifier: Modifier = Modifier) {
+    Icon(
+        modifier = modifier,
+        painter = painterResource(id = Favorite.icon),
+        contentDescription = Favorite.route,
+        tint = MaterialTheme.colorScheme.primary
+    )
 }
