@@ -21,7 +21,7 @@ import androidx.compose.ui.unit.dp
 import com.wa.shopgoblin.R
 import com.wa.shopgoblin.ui.theme.ShopGoblinTheme
 
-private val tabHeight = 56.dp
+val tabHeight = 56.dp
 
 @Composable
 fun UserStatusBar(
@@ -74,13 +74,5 @@ fun UserStatusBar(
                 tint = MaterialTheme.colorScheme.primary
             )
         }
-    }
-}
-
-@Preview
-@Composable
-fun UserStatusBarPreview() {
-    ShopGoblinTheme {
-        UserStatusBar(userName = "Warunee Khammak")
     }
 }

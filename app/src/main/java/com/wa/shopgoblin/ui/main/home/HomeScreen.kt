@@ -2,8 +2,10 @@ package com.wa.shopgoblin.ui.main.home
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
@@ -45,6 +47,8 @@ fun HomeScreen(
                 onNotificationClick = onNotificationClick,
                 onFavoriteClick = onFavoriteClick
             )
+            Spacer(modifier = Modifier.size(24.dp))
+            SearchBarScreen()
         }
     }
 }
