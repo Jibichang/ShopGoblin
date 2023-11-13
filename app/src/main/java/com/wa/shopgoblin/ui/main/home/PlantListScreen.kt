@@ -6,18 +6,21 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentHeight
+import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyGridState
-import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
+import androidx.compose.foundation.lazy.grid.LazyHorizontalGrid
 import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.lazy.grid.rememberLazyGridState
 import androidx.compose.foundation.lazy.items
@@ -45,23 +48,17 @@ import com.wa.shopgoblin.ui.theme.Grey400
 import com.wa.shopgoblin.ui.theme.ShopGoblinTheme
 
 @Composable
-fun PlantHomeScreen() {
+fun PlantListScreen() {
     Column(
         modifier = Modifier.fillMaxWidth(),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ) {
-        Spacer(modifier = Modifier.size(24.dp))
         PlantHeader(header = stringResource(id = R.string.home_special_title))
-
-        Spacer(modifier = Modifier.size(24.dp))
         PlantHorizontalList(plants = specialPlant)
 
-        Spacer(modifier = Modifier.size(24.dp))
         PlantHeader(header = stringResource(id = R.string.home_popular_title))
-
-        Spacer(modifier = Modifier.size(24.dp))
-        PlantVerticalGrid(plants = specialPlant)
+        PlantHorizontalGrid(plants = specialPlant)
     }
 }
 
@@ -71,7 +68,7 @@ fun PlantHeader(
     header: String
 ) {
     Row(
-        modifier = modifier.fillMaxWidth(),
+        modifier = modifier.fillMaxWidth().height(56.dp).padding(16.dp),
         verticalAlignment = Alignment.CenterVertically
     ) {
         Text(
@@ -93,10 +90,11 @@ fun PlantHorizontalList(
     listState: LazyListState = rememberLazyListState()
 ) {
     LazyRow(
-        state = listState
+        state = listState,
+        contentPadding = PaddingValues(horizontal = 16.dp, vertical = 8.dp)
     ) {
         this.items(items = plants) { plant ->
-            Row(modifier = Modifier.wrapContentHeight()) {
+            Row(modifier = Modifier.wrapContentHeight().fillMaxWidth()) {
                 PlantItem(plant = plant)
             }
             Spacer(modifier = Modifier.size(16.dp))
@@ -105,15 +103,15 @@ fun PlantHorizontalList(
 }
 
 @Composable
-fun PlantVerticalGrid(
+fun PlantHorizontalGrid(
     plants: List<Plant>,
     listState: LazyGridState = rememberLazyGridState()
 ) {
-    LazyVerticalGrid(
-        columns = GridCells.Fixed(2),
+    LazyHorizontalGrid(
+        rows = GridCells.Fixed(2),
         verticalArrangement = Arrangement.spacedBy(24.dp),
         horizontalArrangement = Arrangement.spacedBy(16.dp),
-        state = listState
+        state = listState,
     ) {
         this.items(plants) { plant ->
             PlantItem(plant = plant)
@@ -188,6 +186,6 @@ fun PlantImageCard(
 fun SpecialDealScreenPreview() {
     ShopGoblinTheme {
 
-        PlantItem(plant = specialPlant[0])
+        PlantHorizontalList(plants = specialPlant)
     }
 }

@@ -16,7 +16,8 @@ import androidx.navigation.compose.composable
 import com.wa.shopgoblin.ui.main.cart.CartScreen
 import com.wa.shopgoblin.ui.main.home.FavoriteScreen
 import com.wa.shopgoblin.ui.main.home.HomeScreen
-import com.wa.shopgoblin.ui.main.home.PlantHomeScreen
+import com.wa.shopgoblin.ui.main.home.NotificationScreen
+import com.wa.shopgoblin.ui.main.home.PlantListScreen
 import com.wa.shopgoblin.ui.main.orders.OrdersScreen
 import com.wa.shopgoblin.ui.main.profile.ProfileScreen
 import com.wa.shopgoblin.ui.main.wallet.WalletScreen
@@ -36,10 +37,11 @@ fun MainBottomNavHost(
             HomeScreen(
                 onNotificationClick = {
                     navController.navigateSingleTopTo(Notification.route)
+                },
+                onFavoriteClick = {
+                    navController.navigateSingleTopTo(Favorite.route)
                 }
-            ) {
-                navController.navigateSingleTopTo(Favorite.route)
-            }
+            )
         }
         composable(route = Cart.route) {
             CartScreen(onClick = { navController.navigateSingleTopTo(Cart.route) })
@@ -54,7 +56,7 @@ fun MainBottomNavHost(
             ProfileScreen()
         }
         composable(route = Notification.route) {
-            PlantHomeScreen()
+            NotificationScreen()
         }
         composable(route = Favorite.route) {
             FavoriteScreen()
