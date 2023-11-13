@@ -28,6 +28,7 @@ import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.ClickableText
 import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.MaterialTheme.typography
 import androidx.compose.material3.Text
@@ -47,20 +48,20 @@ import com.wa.shopgoblin.data.database.plant.specialPlant
 import com.wa.shopgoblin.ui.theme.Grey400
 import com.wa.shopgoblin.ui.theme.ShopGoblinTheme
 
-@Composable
-fun PlantListScreen() {
-    Column(
-        modifier = Modifier.fillMaxWidth(),
-        horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.Center
-    ) {
-        PlantHeader(header = stringResource(id = R.string.home_special_title))
-        PlantHorizontalList(plants = specialPlant)
-
-        PlantHeader(header = stringResource(id = R.string.home_popular_title))
-        PlantHorizontalGrid(plants = specialPlant)
-    }
-}
+//@Composable
+//fun PlantListScreen() {
+//    Column(
+//        modifier = Modifier.fillMaxWidth(),
+//        horizontalAlignment = Alignment.CenterHorizontally,
+//        verticalArrangement = Arrangement.Center
+//    ) {
+//        PlantHeader(header = stringResource(id = R.string.home_special_title))
+//        PlantHorizontalList(plants = specialPlant)
+//
+//        PlantHeader(header = stringResource(id = R.string.home_popular_title))
+//        PlantHorizontalGrid(plants = specialPlant)
+//    }
+//}
 
 @Composable
 fun PlantHeader(
@@ -68,7 +69,10 @@ fun PlantHeader(
     header: String
 ) {
     Row(
-        modifier = modifier.fillMaxWidth().height(56.dp).padding(16.dp),
+        modifier = modifier
+            .fillMaxWidth()
+            .height(56.dp)
+            .padding(16.dp),
         verticalAlignment = Alignment.CenterVertically
     ) {
         Text(
@@ -87,15 +91,25 @@ fun PlantHeader(
 @Composable
 fun PlantHorizontalList(
     plants: List<Plant>,
-    listState: LazyListState = rememberLazyListState()
+    listState: LazyListState = rememberLazyListState(),
+    onFavoriteClick: (Plant) -> Unit = { },
+    onItemClick: (Plant) -> Unit = { }
 ) {
     LazyRow(
         state = listState,
         contentPadding = PaddingValues(horizontal = 16.dp, vertical = 8.dp)
     ) {
         this.items(items = plants) { plant ->
-            Row(modifier = Modifier.wrapContentHeight().fillMaxWidth()) {
-                PlantItem(plant = plant)
+            Row(
+                modifier = Modifier
+                    .wrapContentHeight()
+                    .fillMaxWidth()
+            ) {
+                PlantItem(
+                    plant = plant,
+                    onFavoriteClick = onFavoriteClick,
+                    onItemClick = onItemClick
+                )
             }
             Spacer(modifier = Modifier.size(16.dp))
         }
@@ -123,6 +137,7 @@ fun PlantHorizontalGrid(
 fun PlantItem(
     modifier: Modifier = Modifier,
     plant: Plant,
+    onFavoriteClick: (Plant) -> Unit = { },
     onItemClick: (Plant) -> Unit = { }
 ) {
     Column(
@@ -130,7 +145,9 @@ fun PlantItem(
             .width(200.dp)
             .clickable { onItemClick(plant) }
     ) {
-        PlantImageCard(modifier = modifier, plant = plant)
+        PlantImageCard(modifier = modifier, plant = plant) {
+            onFavoriteClick(plant)
+        }
 
         Spacer(modifier = modifier.size(16.dp))
         Text(
@@ -160,7 +177,8 @@ fun PlantItem(
 @Composable
 fun PlantImageCard(
     modifier: Modifier = Modifier,
-    plant: Plant
+    plant: Plant,
+    onFavoriteClick: (Plant) -> Unit = { }
 ) {
     Box {
         Image(
@@ -176,7 +194,9 @@ fun PlantImageCard(
                 .align(Alignment.TopEnd)
                 .padding(16.dp)
         ) {
-            FavoriteIcon(modifier = modifier.size(18.dp))
+            IconButton(onClick = { onFavoriteClick(plant) }) {
+                FavoriteIcon(modifier = modifier.size(18.dp))
+            }
         }
     }
 }
@@ -185,7 +205,6 @@ fun PlantImageCard(
 @Composable
 fun SpecialDealScreenPreview() {
     ShopGoblinTheme {
-
         PlantHorizontalList(plants = specialPlant)
     }
 }

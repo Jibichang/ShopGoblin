@@ -1,6 +1,8 @@
 package com.wa.shopgoblin.ui.main.home
 
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
@@ -28,7 +30,7 @@ fun SearchBarScreen(
     var active by remember { mutableStateOf(false) }
 
     SearchBar(
-        modifier = modifier.fillMaxWidth(),
+        modifier = modifier.fillMaxWidth().padding(start = 16.dp, end = 16.dp),
         shape = RoundedCornerShape(16.dp),
         colors = SearchBarDefaults.colors(containerColor = MaterialTheme.colorScheme.surface),
         query = text,

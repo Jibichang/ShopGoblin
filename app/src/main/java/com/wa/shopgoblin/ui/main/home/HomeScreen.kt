@@ -57,13 +57,28 @@ fun HomeScreen(
                     PlantHeader(header = stringResource(id = R.string.home_special_title))
                 }
                 item {
-                    PlantHorizontalList(plants = specialPlant)
+                    PlantHorizontalList(
+                        plants = specialPlant,
+                        onFavoriteClick = { plant ->
+                            println("---------------plant special onFavoriteClick - ${plant.name}")
+                        },
+                        onItemClick = { plant ->
+                            println("---------------plant special - ${plant.name}")
+                        }
+                    )
                 }
                 item {
                     PlantHeader(header = stringResource(id = R.string.home_popular_title))
                 }
                 item {
-                    PlantHorizontalList(plants = specialPlant.reversed())
+                    PlantHorizontalList(
+                        plants = specialPlant.reversed(),
+                        onFavoriteClick = { plant ->
+                            println("---------------plant popular onFavoriteClick - ${plant.name}")
+                        }, onItemClick = { plant ->
+                            println("---------------plant popular - ${plant.name}")
+                        }
+                    )
                 }
 
             }

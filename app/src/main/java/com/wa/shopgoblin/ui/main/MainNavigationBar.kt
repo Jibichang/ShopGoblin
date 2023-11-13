@@ -17,7 +17,6 @@ import com.wa.shopgoblin.ui.main.cart.CartScreen
 import com.wa.shopgoblin.ui.main.home.FavoriteScreen
 import com.wa.shopgoblin.ui.main.home.HomeScreen
 import com.wa.shopgoblin.ui.main.home.NotificationScreen
-import com.wa.shopgoblin.ui.main.home.PlantListScreen
 import com.wa.shopgoblin.ui.main.orders.OrdersScreen
 import com.wa.shopgoblin.ui.main.profile.ProfileScreen
 import com.wa.shopgoblin.ui.main.wallet.WalletScreen
