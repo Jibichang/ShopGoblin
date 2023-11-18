@@ -15,12 +15,12 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentHeight
-import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.grid.GridCells
+import androidx.compose.foundation.lazy.grid.GridItemSpan
 import androidx.compose.foundation.lazy.grid.LazyGridState
-import androidx.compose.foundation.lazy.grid.LazyHorizontalGrid
+import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.lazy.grid.rememberLazyGridState
 import androidx.compose.foundation.lazy.items
@@ -48,20 +48,47 @@ import com.wa.shopgoblin.data.database.plant.specialPlant
 import com.wa.shopgoblin.ui.theme.Grey400
 import com.wa.shopgoblin.ui.theme.ShopGoblinTheme
 
-//@Composable
-//fun PlantListScreen() {
-//    Column(
-//        modifier = Modifier.fillMaxWidth(),
-//        horizontalAlignment = Alignment.CenterHorizontally,
-//        verticalArrangement = Arrangement.Center
-//    ) {
-//        PlantHeader(header = stringResource(id = R.string.home_special_title))
-//        PlantHorizontalList(plants = specialPlant)
-//
-//        PlantHeader(header = stringResource(id = R.string.home_popular_title))
-//        PlantHorizontalGrid(plants = specialPlant)
-//    }
-//}
+@Composable
+fun PlantListScreen(
+    plants: List<Plant>,
+    listState: LazyGridState = rememberLazyGridState(),
+    onFavoriteClick: (Plant) -> Unit = { },
+    onItemClick: (Plant) -> Unit = { }
+) {
+    LazyVerticalGrid(
+        columns = GridCells.Fixed(2),
+        verticalArrangement = Arrangement.spacedBy(24.dp),
+        horizontalArrangement = Arrangement.spacedBy(16.dp),
+        contentPadding = PaddingValues(16.dp),
+        state = listState
+    ) {
+        val gridItemSpan = GridItemSpan(2)
+        item(span = { gridItemSpan }) {
+            PlantHeader(header = stringResource(id = R.string.home_special_title))
+        }
+        item(span = { gridItemSpan }) {
+            PlantHorizontalList(
+                plants = plants,
+                onFavoriteClick = { onFavoriteClick(it) },
+                onItemClick = {
+                    onItemClick(it)
+                }
+            )
+        }
+        item(span = { gridItemSpan }) {
+            PlantHeader(header = stringResource(id = R.string.home_popular_title))
+        }
+        this.items(plants.reversed()) { plant ->
+            PlantItem(
+                plant = plant,
+                onFavoriteClick = { onFavoriteClick(it) },
+                onItemClick = {
+                    onItemClick(it)
+                }
+            )
+        }
+    }
+}
 
 @Composable
 fun PlantHeader(
@@ -71,8 +98,7 @@ fun PlantHeader(
     Row(
         modifier = modifier
             .fillMaxWidth()
-            .height(56.dp)
-            .padding(16.dp),
+            .height(56.dp),
         verticalAlignment = Alignment.CenterVertically
     ) {
         Text(
@@ -95,10 +121,7 @@ fun PlantHorizontalList(
     onFavoriteClick: (Plant) -> Unit = { },
     onItemClick: (Plant) -> Unit = { }
 ) {
-    LazyRow(
-        state = listState,
-        contentPadding = PaddingValues(horizontal = 16.dp, vertical = 8.dp)
-    ) {
+    LazyRow(state = listState) {
         this.items(items = plants) { plant ->
             Row(
                 modifier = Modifier
@@ -112,23 +135,6 @@ fun PlantHorizontalList(
                 )
             }
             Spacer(modifier = Modifier.size(16.dp))
-        }
-    }
-}
-
-@Composable
-fun PlantHorizontalGrid(
-    plants: List<Plant>,
-    listState: LazyGridState = rememberLazyGridState()
-) {
-    LazyHorizontalGrid(
-        rows = GridCells.Fixed(2),
-        verticalArrangement = Arrangement.spacedBy(24.dp),
-        horizontalArrangement = Arrangement.spacedBy(16.dp),
-        state = listState,
-    ) {
-        this.items(plants) { plant ->
-            PlantItem(plant = plant)
         }
     }
 }
@@ -192,7 +198,7 @@ fun PlantImageCard(
         Box(
             modifier = modifier
                 .align(Alignment.TopEnd)
-                .padding(16.dp)
+                .padding(8.dp)
         ) {
             IconButton(onClick = { onFavoriteClick(plant) }) {
                 FavoriteIcon(modifier = modifier.size(18.dp))
@@ -205,6 +211,6 @@ fun PlantImageCard(
 @Composable
 fun SpecialDealScreenPreview() {
     ShopGoblinTheme {
-        PlantHorizontalList(plants = specialPlant)
+        PlantListScreen(plants = specialPlant)
     }
 }
