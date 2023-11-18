@@ -23,12 +23,17 @@ class UserViewModel(private val userDao: UserDao) : ViewModel() {
             val firstName = "Warunee"
             val lastName = "Khammak"
 
-//            val entities = User(firstName = firstName, lastName = lastName)
-//            userDao.insertAll(entities)
-
             val user = userDao.findByName(firstName, lastName)
-
-            _userName.value = sayHello(user)
+            user?.let {
+                _userName.value = sayHello(it)
+            } ?: insertUser()
         }
+    }
+
+    private fun insertUser() {
+        val firstName = "Warunee"
+        val lastName = "Khammak"
+        val entities = User(firstName = firstName, lastName = lastName)
+        userDao.insertAll(entities)
     }
 }

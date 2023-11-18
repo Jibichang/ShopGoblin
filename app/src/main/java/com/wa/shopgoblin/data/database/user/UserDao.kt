@@ -4,18 +4,19 @@ import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.Query
+import com.wa.shopgoblin.data.database.AppDatabase.Companion.usersTable
 
 @Dao
 interface UserDao {
-    @Query("SELECT * FROM users")
+    @Query("SELECT * FROM $usersTable")
     fun getAll(): List<User>
 
-    @Query("SELECT * FROM users WHERE id IN (:userIds)")
+    @Query("SELECT * FROM $usersTable WHERE id IN (:userIds)")
     fun loadAllByIds(userIds: IntArray): List<User>
 
-    @Query("SELECT * FROM users WHERE first_name LIKE :first AND " +
+    @Query("SELECT * FROM $usersTable WHERE first_name LIKE :first AND " +
             "last_name LIKE :last LIMIT 1")
-    fun findByName(first: String, last: String): User
+    fun findByName(first: String, last: String): User?
 
     @Insert
     fun insertAll(vararg users: User)

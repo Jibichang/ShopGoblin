@@ -17,4 +17,8 @@ val databaseModule = module {
     single {
         get<AppDatabase>().userDao()
     }
+
+    single {
+        get<AppDatabase>().plantDao()
+    }
 }

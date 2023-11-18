@@ -13,7 +13,6 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import com.wa.shopgoblin.data.database.plant.specialPlant
 import com.wa.shopgoblin.ui.main.UserViewModel
 import com.wa.shopgoblin.util.isScrollingTop
 import org.koin.androidx.compose.koinViewModel
@@ -21,14 +20,17 @@ import org.koin.androidx.compose.koinViewModel
 @Composable
 fun HomeScreen(
     viewModel: UserViewModel = koinViewModel(),
+    plantViewModel: PlantViewModel = koinViewModel(),
     onNotificationClick: () -> Unit = {},
     onFavoriteClick: () -> Unit = {}
 ) {
     val userName by viewModel.username.collectAsState()
+    val plants by plantViewModel.plantList.collectAsState()
     val listState: LazyGridState = rememberLazyGridState()
 
     LaunchedEffect(Unit) {
         viewModel.getUserData()
+        plantViewModel.getPlantList()
     }
 
     Surface(
@@ -48,7 +50,7 @@ fun HomeScreen(
                 SearchBarScreen()
             }
 
-            PlantListScreen(specialPlant, listState = listState)
+            PlantListScreen(plants, listState = listState)
         }
     }
 }
