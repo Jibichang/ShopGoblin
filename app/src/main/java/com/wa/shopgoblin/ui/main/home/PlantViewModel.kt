@@ -7,8 +7,10 @@ import com.wa.shopgoblin.data.database.plant.PlantDao
 import com.wa.shopgoblin.data.database.plant.randFloat
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 
 class PlantViewModel(private val plantDao: PlantDao) : ViewModel() {
@@ -16,11 +18,21 @@ class PlantViewModel(private val plantDao: PlantDao) : ViewModel() {
     private val _plantList = MutableStateFlow(emptyList<Plant>())
     val plantList: StateFlow<List<Plant>> = _plantList
 
+    val specialPlantList: Flow<List<Plant>> = _plantList.map {
+        it.filter { plant -> plant.spacial }
+    }
+
     fun getPlantList() {
         CoroutineScope(Dispatchers.IO).launch {
-
             val plants = plantDao.getAll()
             _plantList.value = plants
+        }
+    }
+
+    fun saveFavorite(plant: Plant, checked: Boolean) {
+        CoroutineScope(Dispatchers.IO).launch {
+            plantDao.update(plant.copy(favorite = checked))
+            getPlantList()
         }
     }
 

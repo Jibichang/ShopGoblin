@@ -4,6 +4,7 @@ import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.Query
+import androidx.room.Update
 import com.wa.shopgoblin.data.database.AppDatabase.Companion.plantsTable
 
 @Dao
@@ -15,12 +16,21 @@ interface PlantDao {
     @Query("SELECT * FROM $plantsTable WHERE id IN (:plantIds)")
     fun loadAllByIds(plantIds: IntArray): List<Plant>
 
+    @Query("SELECT * FROM $plantsTable WHERE spacial == 1")
+    fun loadAllSpecial(): List<Plant>
+
+    @Query("SELECT * FROM $plantsTable WHERE favorite == 1")
+    fun loadAllFavorite(): List<Plant>
+
     @Query("SELECT * FROM $plantsTable WHERE name LIKE :name LIMIT 1")
     fun findByName(name: String): Plant?
 
+    @Update(entity = Plant::class)
+    fun update(plant: Plant)
+
     @Insert
-    fun insertAll(vararg users: Plant)
+    fun insertAll(vararg plant: Plant)
 
     @Delete
-    fun delete(user: Plant)
+    fun delete(plant: Plant)
 }

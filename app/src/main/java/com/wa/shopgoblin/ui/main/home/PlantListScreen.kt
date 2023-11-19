@@ -40,19 +40,17 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.style.TextOverflow
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.wa.shopgoblin.R
 import com.wa.shopgoblin.data.database.plant.Plant
-import com.wa.shopgoblin.data.database.plant.specialPlant
 import com.wa.shopgoblin.ui.theme.Grey400
-import com.wa.shopgoblin.ui.theme.ShopGoblinTheme
 
 @Composable
 fun PlantListScreen(
+    specialPlants: List<Plant>,
     plants: List<Plant>,
     listState: LazyGridState = rememberLazyGridState(),
-    onFavoriteClick: (Plant) -> Unit = { },
+    onFavoriteClick: (Plant, Boolean) -> Unit = { _,_ -> },
     onItemClick: (Plant) -> Unit = { }
 ) {
     LazyVerticalGrid(
@@ -68,8 +66,8 @@ fun PlantListScreen(
         }
         item(span = { gridItemSpan }) {
             PlantHorizontalList(
-                plants = plants,
-                onFavoriteClick = { onFavoriteClick(it) },
+                plants = specialPlants,
+                onFavoriteClick = { item, checked -> onFavoriteClick(item, checked) },
                 onItemClick = {
                     onItemClick(it)
                 }
@@ -78,10 +76,10 @@ fun PlantListScreen(
         item(span = { gridItemSpan }) {
             PlantHeader(header = stringResource(id = R.string.home_popular_title))
         }
-        this.items(plants.reversed()) { plant ->
+        this.items(plants) { plant ->
             PlantItem(
                 plant = plant,
-                onFavoriteClick = { onFavoriteClick(it) },
+                onFavoriteClick = { item, checked -> onFavoriteClick(item, checked) },
                 onItemClick = {
                     onItemClick(it)
                 }
@@ -118,7 +116,7 @@ fun PlantHeader(
 fun PlantHorizontalList(
     plants: List<Plant>,
     listState: LazyListState = rememberLazyListState(),
-    onFavoriteClick: (Plant) -> Unit = { },
+    onFavoriteClick: (Plant, Boolean) -> Unit = { _,_ -> },
     onItemClick: (Plant) -> Unit = { }
 ) {
     LazyRow(state = listState) {
@@ -143,7 +141,7 @@ fun PlantHorizontalList(
 fun PlantItem(
     modifier: Modifier = Modifier,
     plant: Plant,
-    onFavoriteClick: (Plant) -> Unit = { },
+    onFavoriteClick: (Plant, Boolean) -> Unit = { _,_ -> },
     onItemClick: (Plant) -> Unit = { }
 ) {
     Column(
@@ -151,8 +149,8 @@ fun PlantItem(
             .width(200.dp)
             .clickable { onItemClick(plant) }
     ) {
-        PlantImageCard(modifier = modifier, plant = plant) {
-            onFavoriteClick(plant)
+        PlantImageCard(modifier = modifier, plant = plant) { item, checked ->
+            onFavoriteClick(item, checked)
         }
 
         Spacer(modifier = modifier.size(16.dp))
@@ -184,7 +182,7 @@ fun PlantItem(
 fun PlantImageCard(
     modifier: Modifier = Modifier,
     plant: Plant,
-    onFavoriteClick: (Plant) -> Unit = { }
+    onFavoriteClick: (Plant, Boolean) -> Unit = { _,_ -> }
 ) {
     Box {
         Image(
@@ -200,17 +198,22 @@ fun PlantImageCard(
                 .align(Alignment.TopEnd)
                 .padding(8.dp)
         ) {
-            IconButton(onClick = { onFavoriteClick(plant) }) {
-                FavoriteIcon(modifier = modifier.size(18.dp))
+            IconButton( onClick = {
+                val checked = !plant.favorite
+                onFavoriteClick(plant, checked)
+            }) {
+                if (plant.favorite) {
+                    FavoriteIcon(
+                        painter = painterResource(id = R.drawable.home_favorited_icon),
+                        modifier = modifier.size(18.dp)
+                    )
+                } else {
+                    FavoriteIcon(
+                        painter = painterResource(id = R.drawable.home_favorite_icon),
+                        modifier = modifier.size(18.dp)
+                    )
+                }
             }
         }
-    }
-}
-
-@Preview(showBackground = true)
-@Composable
-fun SpecialDealScreenPreview() {
-    ShopGoblinTheme {
-        PlantListScreen(plants = specialPlant)
     }
 }
