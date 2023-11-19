@@ -43,6 +43,7 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import com.wa.shopgoblin.R
 import com.wa.shopgoblin.data.database.plant.Plant
+import com.wa.shopgoblin.data.database.plant.plant
 import com.wa.shopgoblin.ui.theme.Grey400
 
 @Composable
@@ -149,7 +150,7 @@ fun PlantItem(
             .width(200.dp)
             .clickable { onItemClick(plant) }
     ) {
-        PlantImageCard(modifier = modifier, plant = plant) { item, checked ->
+        PlantImageCard(plant = plant) { item, checked ->
             onFavoriteClick(item, checked)
         }
 
@@ -160,22 +161,30 @@ fun PlantItem(
             maxLines = 1,
             overflow = TextOverflow.Ellipsis
         )
-        Row(modifier = modifier, verticalAlignment = Alignment.CenterVertically) {
-            Icon(
-                painter = painterResource(id = R.drawable.home_rating_icon),
-                contentDescription = null,
-                tint = MaterialTheme.colorScheme.primary
-            )
-            Spacer(modifier = modifier.size(12.dp))
-            Text(text = plant.rating)
+        Row(verticalAlignment = Alignment.CenterVertically) {
+            RatingScoreMinimize(rating = plant.rating)
+
             Spacer(modifier = modifier.weight(1f))
             Text(
                 text = "$${plant.price}",
-                style = typography.headlineLarge,
-                modifier = modifier
+                style = typography.headlineLarge
             )
         }
     }
+}
+
+@Composable
+fun RatingScoreMinimize(
+    modifier: Modifier = Modifier,
+    rating: String
+) {
+    Icon(
+        painter = painterResource(id = R.drawable.home_rating_icon),
+        contentDescription = null,
+        tint = MaterialTheme.colorScheme.primary
+    )
+    Spacer(modifier = modifier.size(12.dp))
+    Text(text = rating)
 }
 
 @Composable
@@ -202,17 +211,10 @@ fun PlantImageCard(
                 val checked = !plant.favorite
                 onFavoriteClick(plant, checked)
             }) {
-                if (plant.favorite) {
-                    FavoriteIcon(
-                        painter = painterResource(id = R.drawable.home_favorited_icon),
-                        modifier = modifier.size(18.dp)
-                    )
-                } else {
-                    FavoriteIcon(
-                        painter = painterResource(id = R.drawable.home_favorite_icon),
-                        modifier = modifier.size(18.dp)
-                    )
-                }
+                FavoriteIcon(
+                    modifier = modifier.size(18.dp),
+                    checked = plant.favorite
+                )
             }
         }
     }

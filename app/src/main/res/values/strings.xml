@@ -6,10 +6,16 @@
     <string name="wallet_nav_title">Wallet</string>
     <string name="profile_nav_title">Profile</string>
 
-
+    <!-- Home -->
     <string name="notification_title">Notification</string>
     <string name="favorite_title">Favorite</string>
     <string name="home_special_title">Special Offers</string>
     <string name="home_popular_title">Most Popular</string>
     <string name="home_special_all_title">See All</string>
+
+    <!-- Detail -->
+    <string name="home_detail_total_title">Total price</string>
+    <string name="home_detail_quantity_title">Quantity</string>
+    <string name="home_detail_description_title">Description</string>
+    <string name="home_detail_cart_title">Add to Cart</string>
 </resources>

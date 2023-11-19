@@ -24,6 +24,7 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.wa.shopgoblin.R
+import com.wa.shopgoblin.data.database.plant.plant
 import com.wa.shopgoblin.ui.theme.ShopGoblinTheme
 
 @Composable
@@ -94,8 +95,13 @@ fun UserPrev() {
 @Composable
 fun FavoriteIcon(
     modifier: Modifier = Modifier,
-    painter: Painter = painterResource(id = Favorite.icon)
+    checked: Boolean = false
 ) {
+    val painter = if (checked) {
+        painterResource(id = R.drawable.home_favorited_icon)
+    } else {
+        painterResource(id = R.drawable.home_favorite_icon)
+    }
     Icon(
         modifier = modifier,
         painter = painter,
