@@ -17,14 +17,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.wa.shopgoblin.R
-import com.wa.shopgoblin.data.database.plant.plant
 import com.wa.shopgoblin.ui.theme.ShopGoblinTheme
 
 @Composable
@@ -88,7 +86,7 @@ fun UserStatusBar(
 @Composable
 fun UserPrev() {
     ShopGoblinTheme {
-//        FavoriteIcon(painterResource(id = R.drawable.home_favorited_icon))
+//        FavoriteIcon(painterResource(id = R.drawable.home_favourited_icon))
     }
 }
 

@@ -19,6 +19,12 @@ android {
         vectorDrawables {
             useSupportLibrary = true
         }
+
+        kapt {
+            arguments {
+                arg("room.schemaLocation", "$projectDir/schemas")
+            }
+        }
     }
 
     buildTypes {
@@ -73,6 +79,8 @@ dependencies {
     val room = "2.6.0"
     val material3 = "1.2.0-alpha10"
     val navigation = "2.5.0"
+    val gson = "2.8.9"
+    val okio = "3.4.0"
     implementation("io.insert-koin:koin-androidx-compose:$koin")
     testImplementation("io.insert-koin:koin-test-junit4:$koin")
 
@@ -85,4 +93,6 @@ dependencies {
     implementation("androidx.compose.material3:material3-window-size-class:$material3")
 
     implementation("androidx.navigation:navigation-compose:$navigation")
+    implementation("com.google.code.gson:gson:$gson")
+    implementation("com.squareup.okio:okio:$okio")
 }

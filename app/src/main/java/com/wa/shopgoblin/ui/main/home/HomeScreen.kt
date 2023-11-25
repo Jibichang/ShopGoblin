@@ -13,8 +13,8 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
-import com.wa.shopgoblin.data.database.plant.Plant
 import com.wa.shopgoblin.ui.main.UserViewModel
 import com.wa.shopgoblin.util.isScrollingTop
 import kotlinx.coroutines.CoroutineScope
@@ -27,18 +27,20 @@ fun HomeScreen(
     plantViewModel: PlantViewModel = koinViewModel(),
     scope: CoroutineScope = rememberCoroutineScope(),
     onNotificationClick: () -> Unit = {},
-    onFavoriteClick: () -> Unit = {},
-    onItemClick: (Plant) -> Unit = {}
+    onFavoriteMenu: () -> Unit = {},
+    onItemClick: (Int) -> Unit = {}
 ) {
     val userName by viewModel.username.collectAsState()
     val plants by plantViewModel.plantList.collectAsState()
     val specialPlants by plantViewModel.specialPlantList.collectAsState(emptyList())
 
     val listState: LazyGridState = rememberLazyGridState()
+    val context = LocalContext.current
 
     LaunchedEffect(Unit) {
         viewModel.getUserData()
         plantViewModel.getPlantList()
+//        plantViewModel.savePlantList(context)
     }
 
     Surface(
@@ -49,7 +51,7 @@ fun HomeScreen(
             UserStatusBar(
                 userName = userName,
                 onNotificationClick = onNotificationClick,
-                onFavoriteClick = onFavoriteClick
+                onFavoriteClick = onFavoriteMenu
             )
 
             AnimatedVisibility(
@@ -67,7 +69,7 @@ fun HomeScreen(
                         plantViewModel.saveFavorite(plant = item, checked = checked)
                     }
                 }
-            ) { plant -> onItemClick(plant) }
+            ) { plant -> onItemClick(plant.id) }
         }
     }
 }

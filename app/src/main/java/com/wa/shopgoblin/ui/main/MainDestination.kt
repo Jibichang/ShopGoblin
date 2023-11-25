@@ -1,7 +1,8 @@
 package com.wa.shopgoblin.ui.main
 
+import androidx.navigation.NavType
+import androidx.navigation.navArgument
 import com.wa.shopgoblin.R
-import com.wa.shopgoblin.ui.main.home.UserStatusDestination
 
 interface MainDestination {
     val title: Int
@@ -58,8 +59,21 @@ object Favorite : MainDestination {
         get() = "favorite"
 }
 
+object Detail : MainDestination {
+    override val title = R.string.favorite_title
+    override val icon = R.drawable.home_favorite_icon
+    override val route: String
+        get() = "detail"
+
+    const val plantArg = "plant_arg"
+    val routeWithArgs = "${route}/{${plantArg}}"
+    val arguments = listOf(
+        navArgument(plantArg) { type = NavType.IntType }
+    )
+}
+
 // Screens to be displayed in the bottom navigation
 val bottomNavigationScreens = listOf(Home, Cart, Orders, Wallet, Profile)
 
 // Screens to be displayed in the bottom navigation
-val allScreens = listOf(Home, Cart, Orders, Wallet, Profile, Notification, Favorite)
+val allScreens = listOf(Home, Cart, Orders, Wallet, Profile, Notification, Favorite, Detail)

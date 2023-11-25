@@ -17,6 +17,7 @@ import com.wa.shopgoblin.ui.main.cart.CartScreen
 import com.wa.shopgoblin.ui.main.home.FavoriteScreen
 import com.wa.shopgoblin.ui.main.home.HomeScreen
 import com.wa.shopgoblin.ui.main.home.NotificationScreen
+import com.wa.shopgoblin.ui.main.home.detail.PlantDetailScreen
 import com.wa.shopgoblin.ui.main.orders.OrdersScreen
 import com.wa.shopgoblin.ui.main.profile.ProfileScreen
 import com.wa.shopgoblin.ui.main.wallet.WalletScreen
@@ -37,10 +38,12 @@ fun MainBottomNavHost(
                 onNotificationClick = {
                     navController.navigateSingleTopTo(Notification.route)
                 },
-                onFavoriteClick = {
+                onFavoriteMenu = {
                     navController.navigateSingleTopTo(Favorite.route)
                 }
-            )
+            ) { plant ->
+                navController.navigateToPlantDetail(plant)
+            }
         }
         composable(route = Cart.route) {
             CartScreen(onClick = { navController.navigateSingleTopTo(Cart.route) })
@@ -60,8 +63,23 @@ fun MainBottomNavHost(
         composable(route = Favorite.route) {
             FavoriteScreen()
         }
+        composable(
+            route = Detail.routeWithArgs,
+            arguments = Detail.arguments
+        ) { navBackStackEntry ->
+            val planId = navBackStackEntry.arguments?.getInt(Detail.plantArg)
+
+
+            PlantDetailScreen(
+                plantId = planId,
+                navController = navController
+            )
+        }
     }
 }
+
+fun NavHostController.navigateToPlantDetail(plant: Int?) =
+    this.navigateSingleTopTo("${Detail.route}/$plant")
 
 @Composable
 fun MainBottomNavigationBar(

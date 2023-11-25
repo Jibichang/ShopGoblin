@@ -22,8 +22,8 @@ interface PlantDao {
     @Query("SELECT * FROM $plantsTable WHERE favorite == 1")
     fun loadAllFavorite(): List<Plant>
 
-    @Query("SELECT * FROM $plantsTable WHERE name LIKE :name LIMIT 1")
-    fun findByName(name: String): Plant?
+    @Query("SELECT * FROM $plantsTable WHERE id == (:id) LIMIT 1")
+    fun findById(id: Int): Plant?
 
     @Update(entity = Plant::class)
     fun update(plant: Plant)

@@ -1,0 +1,134 @@
+[
+    {
+        "description": "Dracaena trifasciata is a species of flowering plant in the family Asparagaceae, native to tropical West Africa from Nigeria east to the Congo. It is most commonly known as the snake plant, Saint George's sword, mother-in-law's tongue, and viper's bowstring hemp, among other names.",
+        "favorite": false,
+        "icon": "plant_1",
+        "name": "Sansevieria Trifasciata Snake Plant",
+        "price": 26.0,
+        "quantity": 57,
+        "rating": "4.57",
+        "reviewer": 4852,
+        "spacial": false
+    },
+    {
+        "description": "Pilea peperomioides, the Chinese money plant, UFO plant, pancake plant, lefse plant or missionary plant, is a species of flowering plant in the nettle family Urticaceae, native to Yunnan and Sichuan provinces in southern China.",
+        "favorite": false,
+        "icon": "plant_2",
+        "name": "Chinese Money Plant",
+        "price": 32.0,
+        "quantity": 114,
+        "rating": "4.35",
+        "reviewer": 1977,
+        "spacial": false
+    },
+    {
+        "description": "The Juniper tree, with its striking pyramidal form and evergreen foliage ranging from deep green to silvery blue, stands as a resilient symbol of endurance in various landscapes. Adaptable to diverse environments, these trees offer year-round beauty, adorned with small fleshy cones that shift in color, adding ornamental value. Their cultural significance, aromatic wood, and historical use in traditional practices further elevate the Juniper's charm and allure.",
+        "favorite": false,
+        "icon": "plant_3",
+        "name": "Junipers",
+        "price": 39.0,
+        "quantity": 150,
+        "rating": "4.69",
+        "reviewer": 3007,
+        "spacial": true
+    },
+    {
+        "description": "The Ficus lyrata, commonly called the Fiddle Leaf Fig, boasts large, glossy, violin-shaped leaves that impart a bold and elegant aesthetic. With its striking foliage displaying deep green tones and prominent veining, this tropical tree serves as a sought-after indoor adornment, elevating interior spaces with its sculptural beauty. Known for its preference for indirect sunlight and moderate watering, the Ficus lyrata stands as a beloved choice, offering a touch of lush sophistication and natural allure to homes and offices.",
+        "favorite": false,
+        "icon": "plant_4",
+        "name": "Ficus lyrata",
+        "price": 31.0,
+        "quantity": 93,
+        "rating": "4.91",
+        "reviewer": 3581,
+        "spacial": true
+    },
+    {
+        "description": "The Lemon Cypress, recognized for its vibrant, aromatic foliage resembling a miniature evergreen, emanates a refreshing lemon scent. With its compact, columnar growth habit and golden-green foliage, this ornamental tree adds a touch of citrus-scented charm to gardens or indoor settings, making it a delightful and aromatic addition to any space.",
+        "favorite": false,
+        "icon": "plant_5",
+        "name": "Lemon cypress",
+        "price": 29.0,
+        "quantity": 147,
+        "rating": "4.53",
+        "reviewer": 3887,
+        "spacial": false
+    },
+    {
+        "description": "Peperomia, a genus of small, ornamental plants, showcases diverse leaf shapes and colors, making it a popular choice for indoor cultivation. Renowned for its low-maintenance nature and compact size, Peperomia thrives in various light conditions, offering charming foliage with striking textures, patterns, and hues, making it an ideal addition to any plant collection or small-space gardening.",
+        "favorite": false,
+        "icon": "plant_6",
+        "name": "Peperomia",
+        "price": 21.0,
+        "quantity": 104,
+        "rating": "4.01",
+        "reviewer": 4485,
+        "spacial": true
+    },
+    {
+        "description": "Dracaena fragrans, also called the Corn Plant or Cornstalk Dracaena, boasts elegant, sword-shaped leaves arranged in a rosette atop woody stems, displaying lush dark green foliage with creamy-yellow edges. Adaptable to indoor environments and tolerant of low light, it serves as a hardy, air-purifying ornamental plant, adding a tropical touch to spaces with its graceful, arching leaves.",
+        "favorite": false,
+        "icon": "plant_7",
+        "name": "Dracaena fragrans",
+        "price": 47.0,
+        "quantity": 117,
+        "rating": "4.38",
+        "reviewer": 1835,
+        "spacial": false
+    },
+    {
+        "description": "Crassula ovata, commonly named the Jade Plant or Money Tree, showcases thick, glossy green leaves on sturdy branches, symbolizing luck and prosperity in many cultures. With its resilient nature and water-storing capacity in its fleshy leaves, this succulent thrives in bright light conditions and minimal watering, making it a cherished indoor or outdoor ornamental plant revered for its symbolism and enduring beauty.",
+        "favorite": false,
+        "icon": "plant_8",
+        "name": "Crassula ovata",
+        "price": 29.0,
+        "quantity": 57,
+        "rating": "4.31",
+        "reviewer": 4264,
+        "spacial": true
+    },
+    {
+        "description": "Aglaonema, known as the Chinese Evergreen, features striking, variegated foliage in shades of green, silver, or red, adorning indoor spaces with its lush and vibrant leaves. Renowned for its air-purifying properties and low-maintenance nature, this tropical plant thrives in low to medium light conditions, making it an ideal choice for indoor decoration while offering a touch of exotic beauty and resilience to diverse environments.",
+        "favorite": false,
+        "icon": "plant_9",
+        "name": "Aglaonema",
+        "price": 33.0,
+        "quantity": 130,
+        "rating": "3.05",
+        "reviewer": 1836,
+        "spacial": false
+    },
+    {
+        "description": "Eucalyptus cinerea, commonly called the Silver Dollar Eucalyptus, showcases distinctive round, silvery-blue leaves on tall stems, emitting a refreshing aroma. Beloved for its aromatic foliage, this evergreen tree adds a unique charm to gardens and arrangements, offering a captivating visual appeal and a delightful scent often used in decorative and aromatic applications, including bouquets, wreaths, and potpourri.",
+        "favorite": false,
+        "icon": "plant_10",
+        "name": "Eucalyptus cinerea",
+        "price": 37.0,
+        "quantity": 97,
+        "rating": "4.88",
+        "reviewer": 2584,
+        "spacial": false
+    },
+    {
+        "description": "Cereus repandus, also known as the Peruvian Apple Cactus, boasts a tall, columnar stem adorned with numerous ribs and spines, culminating in large, showy white flowers at night. This striking cactus, native to South America, bears edible red or yellowish fruits, known as Peruvian apples, making it not only an ornamental marvel but also a potential food source in some regions, while its impressive nocturnal blossoms add to its allure in gardens and landscapes.",
+        "favorite": false,
+        "icon": "plant_11",
+        "name": "Cereus repandus",
+        "price": 25.0,
+        "quantity": 56,
+        "rating": "4.27",
+        "reviewer": 3153,
+        "spacial": false
+    },
+    {
+        "description": "Cereus jamacaru, commonly referred to as the Mandacaru cactus, features a tall, branching stem covered in prominent ribs and sharp spines. Native to South America, this cactus species showcases nocturnal white flowers and eventually produces edible red or purplish fruits. Its imposing stature and adaptability to arid environments make it a distinctive presence in landscapes and natural habitats across various regions.",
+        "favorite": false,
+        "icon": "plant_12",
+        "name": "Cereus jamacaru",
+        "price": 45.0,
+        "quantity": 145,
+        "rating": "3.94",
+        "reviewer": 4539,
+        "spacial": true
+    }
+]

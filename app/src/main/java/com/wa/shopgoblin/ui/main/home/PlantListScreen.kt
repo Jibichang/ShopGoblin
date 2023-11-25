@@ -1,6 +1,7 @@
 package com.wa.shopgoblin.ui.main.home
 
-import androidx.compose.foundation.Image
+import android.widget.ImageView
+import androidx.annotation.DrawableRes
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -36,15 +37,19 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.ColorFilter
+import androidx.compose.ui.graphics.asAndroidColorFilter
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.viewinterop.AndroidView
 import com.wa.shopgoblin.R
 import com.wa.shopgoblin.data.database.plant.Plant
-import com.wa.shopgoblin.data.database.plant.plant
 import com.wa.shopgoblin.ui.theme.Grey400
+import com.wa.shopgoblin.util.loadImage
 
 @Composable
 fun PlantListScreen(
@@ -194,13 +199,21 @@ fun PlantImageCard(
     onFavoriteClick: (Plant, Boolean) -> Unit = { _,_ -> }
 ) {
     Box {
-        Image(
+//        Image(
+//            modifier = modifier
+//                .size(200.dp)
+//                .clip(RoundedCornerShape(36.dp))
+//                .background(color = Grey400),
+//            painter = painterResource(id = plant.icon),
+//            contentDescription = plant.name
+//        )
+
+        AppImage (
             modifier = modifier
                 .size(200.dp)
                 .clip(RoundedCornerShape(36.dp))
                 .background(color = Grey400),
-            painter = painterResource(id = plant.icon),
-            contentDescription = plant.name
+            resource = loadImage(LocalContext.current, plant.icon)
         )
         Box(
             modifier = modifier
@@ -218,4 +231,25 @@ fun PlantImageCard(
             }
         }
     }
+}
+
+@Composable
+fun AppImage(
+    modifier: Modifier = Modifier,
+    @DrawableRes resource: Int,
+    colorFilter: ColorFilter? = null
+) {
+    AndroidView(
+        modifier = modifier,
+        factory = { context ->
+            ImageView(context).apply {
+                setImageResource(resource)
+                setColorFilter(colorFilter?.asAndroidColorFilter())
+            }
+        },
+        update = {
+            it.setImageResource(resource)
+            it.colorFilter = colorFilter?.asAndroidColorFilter()
+        }
+    )
 }
