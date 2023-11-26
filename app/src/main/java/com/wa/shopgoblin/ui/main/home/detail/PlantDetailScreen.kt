@@ -81,15 +81,14 @@ fun PlantDetailScreen(
         plantDetail?.let { plant ->
             PlantDetailContent(
                 paddingValues = paddingValues,
-                image = {
-                    PlantDetailImage(icon = plant.icon, name = plant.name)
-                },
+                image = { PlantDetailImage(icon = plant.icon, name = plant.name) },
                 header = {
-                    TitleAndRatingSection(plant = plant, onFavoriteClick = onFavoriteClick)
+                    TitleAndRatingSection(
+                        plant = plant,
+                        onFavoriteClick = onFavoriteClick
+                    )
                 },
-                description = {
-                    DescriptionSection(plant.description ?: "")
-                }
+                description = { DescriptionSection(plant.description ?: "") }
             ) { quantity ->
                 AddToCartTab(plant.price) {
                     AddToCartButton(enabled = quantity != 0) {
