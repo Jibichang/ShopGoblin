@@ -18,4 +18,9 @@
     <string name="home_detail_quantity_title">Quantity</string>
     <string name="home_detail_description_title">Description</string>
     <string name="home_detail_cart_title">Add to Cart</string>
+
+    <!-- Cart -->
+    <string name="cart_header">My Cart</string>
+    <string name="cart_empty_title">Your cart is empty</string>
+    <string name="cart_empty_description">You don\'t have any items added to cart yet. You need to add items to cart before checkout.</string>
 </resources>

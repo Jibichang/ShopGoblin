@@ -75,5 +75,5 @@ object Detail : MainDestination {
 // Screens to be displayed in the bottom navigation
 val bottomNavigationScreens = listOf(Home, Cart, Orders, Wallet, Profile)
 
-// Screens to be displayed in the bottom navigation
+// Screens to be displayed in the all navigation
 val allScreens = listOf(Home, Cart, Orders, Wallet, Profile, Notification, Favorite, Detail)
