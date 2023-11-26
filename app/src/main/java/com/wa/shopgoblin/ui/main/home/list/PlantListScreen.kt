@@ -76,7 +76,8 @@ fun PlantListScreen(
 @Composable
 fun PlantHeader(
     modifier: Modifier = Modifier,
-    header: String
+    header: String,
+    onClickSeeAll: () -> Unit = {}
 ) {
     Row(
         modifier = modifier
@@ -91,7 +92,7 @@ fun PlantHeader(
         )
         ClickableText(
             text = AnnotatedString(stringResource(id = R.string.home_special_all_title)),
-            onClick = { },
+            onClick = { onClickSeeAll() },
             style = typography.headlineMedium
         )
     }

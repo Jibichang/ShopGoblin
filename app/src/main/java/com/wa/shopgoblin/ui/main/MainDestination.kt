@@ -60,8 +60,8 @@ object Favorite : MainDestination {
 }
 
 object Detail : MainDestination {
-    override val title = R.string.favorite_title
-    override val icon = R.drawable.home_favorite_icon
+    override val title = R.string.home_nav_title
+    override val icon = R.drawable.home_nav
     override val route: String
         get() = "detail"
 
