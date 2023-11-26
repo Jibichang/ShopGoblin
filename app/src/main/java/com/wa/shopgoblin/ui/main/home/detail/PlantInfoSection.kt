@@ -16,7 +16,7 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import com.wa.shopgoblin.R
 import com.wa.shopgoblin.data.database.plant.Plant
-import com.wa.shopgoblin.ui.main.home.FavoriteIcon
+import com.wa.shopgoblin.ui.main.home.user.FavoriteIcon
 import com.wa.shopgoblin.ui.main.home.list.RatingScoreMinimize
 
 @Composable

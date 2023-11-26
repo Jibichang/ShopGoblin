@@ -1,4 +1,4 @@
-package com.wa.shopgoblin.ui.main.home
+package com.wa.shopgoblin.ui.main.home.user
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column

@@ -17,6 +17,8 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import com.wa.shopgoblin.ui.main.UserViewModel
 import com.wa.shopgoblin.ui.main.home.list.PlantListScreen
+import com.wa.shopgoblin.ui.main.home.user.SearchBarScreen
+import com.wa.shopgoblin.ui.main.home.user.UserStatusBar
 import com.wa.shopgoblin.util.isScrollingTop
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
