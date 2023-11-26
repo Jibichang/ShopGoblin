@@ -17,6 +17,7 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.wa.shopgoblin.domain.UserStateHolder
+import com.wa.shopgoblin.ui.main.home.detail.TopBarTransparent
 import com.wa.shopgoblin.ui.theme.ShopGoblinTheme
 import com.wa.shopgoblin.util.navigateSingleTopTo
 import org.koin.androidx.compose.koinViewModel
@@ -74,17 +75,26 @@ fun MainApp() {
     val currentDestination = currentBackStack?.destination
     val currentScreen = allScreens.find {
         it.route == currentDestination?.route } ?: Home
+    val isHomeScreen = bottomNavigationScreens.find {
+        it.route == currentDestination?.route } != null
 
     Scaffold(
         modifier = Modifier.fillMaxSize(),
+        topBar = {
+            if (!isHomeScreen) {
+                TopBarTransparent(navController = navController)
+            }
+        },
         bottomBar = {
-            MainBottomNavigationBar(
-                allScreens = bottomNavigationScreens,
-                onTabSelected = { newScreen ->
-                    navController.navigateSingleTopTo(newScreen.route)
-                },
-                currentScreen = currentScreen
-            )
+            if (isHomeScreen) {
+                MainBottomNavigationBar(
+                    allScreens = bottomNavigationScreens,
+                    onTabSelected = { newScreen ->
+                        navController.navigateSingleTopTo(newScreen.route)
+                    },
+                    currentScreen = currentScreen
+                )
+            }
         }
     ) { paddingValues ->
         MainBottomNavHost(

@@ -6,7 +6,6 @@ import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
@@ -22,7 +21,6 @@ import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Scaffold
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
@@ -73,27 +71,20 @@ fun PlantDetailScreen(
         plantViewModel.getPlant(plantId)
     }
 
-    Scaffold(
-        topBar = {
-            TopBarTransparent(navController = navController)
-        }
-    ) { paddingValues ->
-        plantDetail?.let { plant ->
-            PlantDetailContent(
-                paddingValues = paddingValues,
-                image = { PlantDetailImage(icon = plant.icon, name = plant.name) },
-                header = {
-                    TitleAndRatingSection(
-                        plant = plant,
-                        onFavoriteClick = onFavoriteClick
-                    )
-                },
-                description = { DescriptionSection(plant.description ?: "") }
-            ) { quantity ->
-                AddToCartTab(plant.price) {
-                    AddToCartButton(enabled = quantity != 0) {
-                        println("----------AddToCartButton quantityCount $quantity")
-                    }
+    plantDetail?.let { plant ->
+        PlantDetailContent(
+            image = { PlantDetailImage(icon = plant.icon, name = plant.name) },
+            header = {
+                TitleAndRatingSection(
+                    plant = plant,
+                    onFavoriteClick = onFavoriteClick
+                )
+            },
+            description = { DescriptionSection(plant.description ?: "") }
+        ) { quantity ->
+            AddToCartTab(plant.price) {
+                AddToCartButton(enabled = quantity != 0) {
+                    println("----------AddToCartButton quantityCount $quantity")
                 }
             }
         }
@@ -126,7 +117,6 @@ fun TopBarTransparent(
 
 @Composable
 fun PlantDetailContent(
-    paddingValues: PaddingValues,
     listState: LazyListState = rememberLazyListState(),
     image: @Composable () -> Unit = {},
     header: @Composable () -> Unit = {},
@@ -146,7 +136,6 @@ fun PlantDetailContent(
             modifier = Modifier
                 .weight(1f)
                 .fillMaxWidth()
-                .padding(paddingValues = paddingValues)
         ) {
             item { header() }
             item {
@@ -199,14 +188,12 @@ fun PlantDetailImage(
     }
 }
 
-
 @Preview(showBackground = true)
 @Composable
 fun DetailScreenPreview() {
     ShopGoblinTheme {
         plant1.let { plant ->
             PlantDetailContent(
-                paddingValues = PaddingValues(0.dp),
                 image = {
                     PlantDetailImage(icon = plant.icon, name = plant.name)
                 },
