@@ -20,7 +20,6 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.wa.shopgoblin.R
-import com.wa.shopgoblin.data.database.plant.Plant
 
 @Composable
 fun AddToCartButton(
@@ -36,7 +35,7 @@ fun AddToCartButton(
     Surface(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(bottom = 32.dp),
+            .padding(bottom = 32.dp, top = 12.dp),
         shape = RoundedCornerShape(32.dp),
         color = background,
         shadowElevation = 8.dp,
@@ -60,8 +59,8 @@ fun AddToCartButton(
 
 @Composable
 fun AddToCartTab(
-    plant: Plant,
-    button: @Composable (Plant) -> Unit
+    price: Double,
+    button: @Composable () -> Unit
 ) {
     Row(
         modifier = Modifier.wrapContentHeight(),
@@ -77,11 +76,11 @@ fun AddToCartTab(
                 style = MaterialTheme.typography.bodySmall
             )
             Text(
-                text = "$${plant.price}",
+                text = "$$price",
                 style = MaterialTheme.typography.headlineLarge
             )
         }
         Spacer(modifier = Modifier.size(32.dp))
-        button(plant)
+        button()
     }
 }

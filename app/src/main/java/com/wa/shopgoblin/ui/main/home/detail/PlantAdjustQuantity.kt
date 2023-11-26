@@ -24,7 +24,6 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.wa.shopgoblin.R
-import com.wa.shopgoblin.data.database.plant.Plant
 
 @Composable
 fun AdjustQuantityButton(
@@ -74,8 +73,7 @@ fun AdjustQuantityButton(
 
 @Composable
 fun AdjustQuantityTab(
-    plant: Plant,
-    button: @Composable (Plant) -> Unit
+    button: @Composable () -> Unit
 ) {
     Row(
         horizontalArrangement = Arrangement.Center,
@@ -86,6 +84,6 @@ fun AdjustQuantityTab(
             style = MaterialTheme.typography.titleMedium
         )
         Spacer(modifier = Modifier.size(20.dp))
-        button(plant)
+        button()
     }
 }

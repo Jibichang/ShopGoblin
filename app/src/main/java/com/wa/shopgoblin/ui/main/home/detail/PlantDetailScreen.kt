@@ -2,6 +2,7 @@
 
 package com.wa.shopgoblin.ui.main.home.detail
 
+import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -43,8 +44,10 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.wa.shopgoblin.data.database.plant.Plant
+import com.wa.shopgoblin.data.database.plant.plant1
 import com.wa.shopgoblin.ui.main.home.PlantViewModel
 import com.wa.shopgoblin.ui.theme.ShopGoblinTheme
+import com.wa.shopgoblin.util.isScrollingTop
 import com.wa.shopgoblin.util.loadImage
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
@@ -58,6 +61,13 @@ fun PlantDetailScreen(
     scope: CoroutineScope = rememberCoroutineScope()
 ) {
     val plantDetail by plantViewModel.plantDetail.collectAsState()
+    val onFavoriteClick: (Plant, Boolean) -> Unit = { item, checked ->
+        scope.launch {
+            plantViewModel.saveFavorite(plant = item, checked = checked) {
+                plantViewModel.getPlant(plantId)
+            }
+        }
+    }
 
     LaunchedEffect(Unit) {
         plantViewModel.getPlant(plantId)
@@ -69,21 +79,24 @@ fun PlantDetailScreen(
         }
     ) { paddingValues ->
         plantDetail?.let { plant ->
-            PlantDetailContent(plant = plant, paddingValues = paddingValues,
-                onFavoriteClick = { item, checked ->
-                    scope.launch {
-                        plantViewModel.saveFavorite(plant = item, checked = checked) {
-                            plantViewModel.getPlant(plantId)
-                        }
-                    }
+            PlantDetailContent(
+                paddingValues = paddingValues,
+                image = {
+                    PlantDetailImage(icon = plant.icon, name = plant.name)
                 },
-                cartButton = { quantity ->
-                    AddToCartTab(plant) {
-                        AddToCartButton(enabled = quantity != 0) {
-                            println("----------AddToCartButton quantityCount $quantity")
-                        }
+                header = {
+                    TitleAndRatingSection(plant = plant, onFavoriteClick = onFavoriteClick)
+                },
+                description = {
+                    DescriptionSection(plant.description ?: "")
+                }
+            ) { quantity ->
+                AddToCartTab(plant.price) {
+                    AddToCartButton(enabled = quantity != 0) {
+                        println("----------AddToCartButton quantityCount $quantity")
                     }
-                })
+                }
+            }
         }
     }
 }
@@ -114,11 +127,12 @@ fun TopBarTransparent(
 
 @Composable
 fun PlantDetailContent(
-    plant: Plant,
     paddingValues: PaddingValues,
     listState: LazyListState = rememberLazyListState(),
-    onFavoriteClick: (Plant, Boolean) -> Unit = { _, _ -> },
-    cartButton: @Composable (Int) -> Unit = {}
+    image: @Composable () -> Unit = {},
+    header: @Composable () -> Unit = {},
+    description: @Composable () -> Unit = {},
+    cart: @Composable (Int) -> Unit = {}
 ) {
     val quantityCount: MutableIntState = remember { mutableIntStateOf(0) }
 
@@ -127,54 +141,50 @@ fun PlantDetailContent(
             .fillMaxSize()
             .padding(start = 24.dp, end = 24.dp)
     ) {
-//        AnimatedVisibility(
-//            visible = true,
-//            modifier = if(listState.isScrollingTop().value) {
-//                Modifier.fillMaxHeight(0.5f)
-//            } else {
-//                Modifier.fillMaxHeight(0.4f)
-//            }
-//        ) {
-            PlantDetailImage(plant = plant)
-//        }
-
+        image()
         LazyColumn(
             state = listState,
             modifier = Modifier
                 .weight(1f)
                 .fillMaxWidth()
+                .padding(paddingValues = paddingValues)
         ) {
+            item { header() }
             item {
-                TitleAndRatingSection(plant = plant, onFavoriteClick = onFavoriteClick)
+                DetailDivider(modifier = Modifier.padding(top = 12.dp, bottom = 12.dp))
             }
+            item { description() }
             item {
-                HorizontalDivider(
-                    modifier = Modifier.padding(top = 12.dp, bottom = 12.dp),
-                    color = MaterialTheme.colorScheme.secondary
-                )
-            }
-            item {
-                DescriptionSection(plant.description ?: "")
-            }
-            item {
-                AdjustQuantityTab(plant) {
+                AdjustQuantityTab {
                     AdjustQuantityButton(quantity = quantityCount)
                 }
             }
         }
-        HorizontalDivider(
-            modifier = Modifier.padding(bottom = 12.dp),
-            color = MaterialTheme.colorScheme.secondary
-        )
+        AnimatedVisibility(
+            visible = !(listState.isScrollingTop().value)
+        ) {
+            DetailDivider()
+        }
 
-        cartButton(quantityCount.intValue)
+        cart(quantityCount.intValue)
     }
+}
+
+@Composable
+fun DetailDivider(
+    modifier: Modifier = Modifier
+) {
+    HorizontalDivider(
+        modifier = modifier,
+        color = MaterialTheme.colorScheme.secondary
+    )
 }
 
 @Composable
 fun PlantDetailImage(
     modifier: Modifier = Modifier,
-    plant: Plant
+    icon: String,
+    name: String
 ) {
     Row(
         modifier = modifier.fillMaxHeight(0.5f),
@@ -183,8 +193,8 @@ fun PlantDetailImage(
     ) {
         Image(
             modifier = Modifier.fillMaxSize(),
-            painter = painterResource(loadImage(LocalContext.current, plant.icon)),
-            contentDescription = plant.name,
+            painter = painterResource(loadImage(LocalContext.current, icon)),
+            contentDescription = name,
             contentScale = ContentScale.FillHeight
         )
     }
@@ -195,14 +205,25 @@ fun PlantDetailImage(
 @Composable
 fun DetailScreenPreview() {
     ShopGoblinTheme {
-//        AdjustQuantityButton()
-//        AddToCartTab(plant) {
-//            AddToCartButton()
-//        }
-//        AdjustQuantityTab(plant) {
-//            AdjustQuantityButton()
-//        }
-//        DescriptionSection(plant)
-//        PlantDetailScreen(plant)
+        plant1.let { plant ->
+            PlantDetailContent(
+                paddingValues = PaddingValues(0.dp),
+                image = {
+                    PlantDetailImage(icon = plant.icon, name = plant.name)
+                },
+                header = {
+                    TitleAndRatingSection(plant = plant, onFavoriteClick = { _, _ -> })
+                },
+                description = {
+                    DescriptionSection(plant.description ?: "")
+                }
+            ) { quantity ->
+                AddToCartTab(plant.price) {
+                    AddToCartButton(enabled = quantity != 0) {
+                        println("----------AddToCartButton quantityCount $quantity")
+                    }
+                }
+            }
+        }
     }
 }
