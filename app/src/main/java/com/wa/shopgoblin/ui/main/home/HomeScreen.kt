@@ -16,6 +16,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import com.wa.shopgoblin.ui.main.UserViewModel
+import com.wa.shopgoblin.ui.main.home.list.PlantListScreen
 import com.wa.shopgoblin.util.isScrollingTop
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
@@ -66,7 +67,9 @@ fun HomeScreen(
                 listState = listState,
                 onFavoriteClick = { item, checked ->
                     scope.launch {
-                        plantViewModel.saveFavorite(plant = item, checked = checked)
+                        plantViewModel.saveFavorite(plant = item, checked = checked) {
+                            plantViewModel.getPlantList()
+                        }
                     }
                 }
             ) { plant -> onItemClick(plant.id) }

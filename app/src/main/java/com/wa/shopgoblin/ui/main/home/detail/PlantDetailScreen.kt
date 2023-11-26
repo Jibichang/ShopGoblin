@@ -11,8 +11,9 @@ import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.LazyListState
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -71,11 +72,17 @@ fun PlantDetailScreen(
             PlantDetailContent(plant = plant, paddingValues = paddingValues,
                 onFavoriteClick = { item, checked ->
                     scope.launch {
-                        plantViewModel.saveFavorite(plant = item, checked = checked)
+                        plantViewModel.saveFavorite(plant = item, checked = checked) {
+                            plantViewModel.getPlant(plantId)
+                        }
                     }
                 },
-                onClickCart = {
-                    println("----------AddToCartButton quantityCount $it")
+                cartButton = { quantity ->
+                    AddToCartTab(plant) {
+                        AddToCartButton(enabled = quantity != 0) {
+                            println("----------AddToCartButton quantityCount $quantity")
+                        }
+                    }
                 })
         }
     }
@@ -109,8 +116,9 @@ fun TopBarTransparent(
 fun PlantDetailContent(
     plant: Plant,
     paddingValues: PaddingValues,
+    listState: LazyListState = rememberLazyListState(),
     onFavoriteClick: (Plant, Boolean) -> Unit = { _, _ -> },
-    onClickCart: (Int) -> Unit = {}
+    cartButton: @Composable (Int) -> Unit = {}
 ) {
     val quantityCount: MutableIntState = remember { mutableIntStateOf(0) }
 
@@ -119,18 +127,19 @@ fun PlantDetailContent(
             .fillMaxSize()
             .padding(start = 24.dp, end = 24.dp)
     ) {
-        Row(
-            modifier = Modifier.fillMaxHeight(0.5f),
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.Center
-        ) {
-            Image(
-                modifier = Modifier.size(360.dp),
-                painter = painterResource(loadImage(LocalContext.current, plant.icon)), contentDescription = plant.name,
-                contentScale = ContentScale.FillHeight
-            )
-        }
+//        AnimatedVisibility(
+//            visible = true,
+//            modifier = if(listState.isScrollingTop().value) {
+//                Modifier.fillMaxHeight(0.5f)
+//            } else {
+//                Modifier.fillMaxHeight(0.4f)
+//            }
+//        ) {
+            PlantDetailImage(plant = plant)
+//        }
+
         LazyColumn(
+            state = listState,
             modifier = Modifier
                 .weight(1f)
                 .fillMaxWidth()
@@ -147,22 +156,37 @@ fun PlantDetailContent(
             item {
                 DescriptionSection(plant.description ?: "")
             }
+            item {
+                AdjustQuantityTab(plant) {
+                    AdjustQuantityButton(quantity = quantityCount)
+                }
+            }
         }
-
-        AdjustQuantityTab(plant) {
-            AdjustQuantityButton(quantity = quantityCount)
-        }
-
         HorizontalDivider(
             modifier = Modifier.padding(bottom = 12.dp),
             color = MaterialTheme.colorScheme.secondary
         )
 
-        AddToCartTab(plant) {
-            AddToCartButton {
-                onClickCart(quantityCount.intValue)
-            }
-        }
+        cartButton(quantityCount.intValue)
+    }
+}
+
+@Composable
+fun PlantDetailImage(
+    modifier: Modifier = Modifier,
+    plant: Plant
+) {
+    Row(
+        modifier = modifier.fillMaxHeight(0.5f),
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.Center
+    ) {
+        Image(
+            modifier = Modifier.fillMaxSize(),
+            painter = painterResource(loadImage(LocalContext.current, plant.icon)),
+            contentDescription = plant.name,
+            contentScale = ContentScale.FillHeight
+        )
     }
 }
 

@@ -17,7 +17,7 @@ import androidx.compose.ui.unit.dp
 import com.wa.shopgoblin.R
 import com.wa.shopgoblin.data.database.plant.Plant
 import com.wa.shopgoblin.ui.main.home.FavoriteIcon
-import com.wa.shopgoblin.ui.main.home.RatingScoreMinimize
+import com.wa.shopgoblin.ui.main.home.list.RatingScoreMinimize
 
 @Composable
 fun DescriptionSection(

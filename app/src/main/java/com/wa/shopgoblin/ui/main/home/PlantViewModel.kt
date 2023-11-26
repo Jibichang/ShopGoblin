@@ -15,10 +15,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
-import okio.buffer
-import okio.source
 import java.lang.reflect.Type
-import java.nio.charset.Charset
 
 class PlantViewModel(private val plantDao: PlantDao) : ViewModel() {
 
@@ -48,20 +45,19 @@ class PlantViewModel(private val plantDao: PlantDao) : ViewModel() {
         }
     }
 
-    fun getPlant(id: Int?) {
-        id?.let {
+    fun getPlant(plantId: Int?) {
+        plantId?.let {
             CoroutineScope(Dispatchers.IO).launch {
                 val plants = plantDao.findById(it)
-                println("---------------- plantDao $plants")
                 _plantDetail.value = plants
             }
         }
     }
 
-    fun saveFavorite(plant: Plant, checked: Boolean) {
+    fun saveFavorite(plant: Plant, checked: Boolean, block: () -> Unit) {
         CoroutineScope(Dispatchers.IO).launch {
             plantDao.update(plant.copy(favorite = checked))
-            getPlantList()
+            block()
         }
     }
 

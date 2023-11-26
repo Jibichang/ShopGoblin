@@ -24,16 +24,24 @@ import com.wa.shopgoblin.data.database.plant.Plant
 
 @Composable
 fun AddToCartButton(
+    enabled: Boolean = true,
     onClickCart: () -> Unit = {}
 ) {
+    val background = if (enabled) {
+        MaterialTheme.colorScheme.primary
+    } else {
+        MaterialTheme.colorScheme.secondary
+    }
+
     Surface(
         modifier = Modifier
             .fillMaxWidth()
             .padding(bottom = 32.dp),
         shape = RoundedCornerShape(32.dp),
-        color = MaterialTheme.colorScheme.primary,
+        color = background,
         shadowElevation = 8.dp,
-        onClick = { onClickCart() }
+        onClick = { onClickCart() },
+        enabled = enabled
     ) {
         Row(
             modifier = Modifier.padding(16.dp),

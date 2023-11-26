@@ -69,7 +69,6 @@ fun MainBottomNavHost(
         ) { navBackStackEntry ->
             val planId = navBackStackEntry.arguments?.getInt(Detail.plantArg)
 
-
             PlantDetailScreen(
                 plantId = planId,
                 navController = navController
