@@ -1,8 +1,10 @@
 package com.wa.shopgoblin.ui.main.home.detail
 
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.wrapContentWidth
@@ -22,11 +24,14 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.wa.shopgoblin.R
 
 @Composable
 fun AdjustQuantityButton(
+    smalled: Boolean = false,
     quantity: MutableIntState = remember { mutableIntStateOf(0) }
 ) {
     val enableMinusButton by remember {
@@ -34,12 +39,12 @@ fun AdjustQuantityButton(
     }
 
     Surface(
-        modifier = Modifier.wrapContentWidth(),
+        modifier = Modifier.wrapContentWidth().height(smalled.height()),
         shape = RoundedCornerShape(32.dp),
         color = MaterialTheme.colorScheme.background
     ) {
         Row(
-            modifier = Modifier.padding(top = 12.dp, bottom = 12.dp, start = 20.dp, end = 20.dp),
+            modifier = Modifier.padding(paddingValues = smalled.paddingValues()),
             horizontalArrangement = Arrangement.Center,
             verticalAlignment = Alignment.CenterVertically
         ) {
@@ -48,27 +53,60 @@ fun AdjustQuantityButton(
                 enabled = enableMinusButton
             ) {
                 Icon(
-                    modifier = Modifier.size(28.dp),
+                    modifier = Modifier.size(smalled.iconSize()),
                     painter = painterResource(id = R.drawable.home_quantity_minus_icon),
                     contentDescription = "reduce quantity"
                 )
             }
-            Spacer(modifier = Modifier.size(20.dp))
             Text(
                 text = quantity.intValue.toString(),
-                style = MaterialTheme.typography.headlineLarge
+                style = smalled.fontStyle(),
+                modifier = Modifier.padding(
+                    start = smalled.spaceBetween(),
+                    end = smalled.spaceBetween()
+                )
             )
-            Spacer(modifier = Modifier.size(20.dp))
             IconButton(
                 onClick = { quantity.intValue = quantity.intValue + 1 }) {
                 Icon(
-                    modifier = Modifier.size(28.dp),
+                    modifier = Modifier.size(smalled.iconSize()),
                     painter = painterResource(id = R.drawable.home_quantity_plus_icon),
                     contentDescription = "add quantity"
                 )
             }
         }
     }
+}
+
+private fun Boolean.height() = if (this) {
+    36.dp
+} else {
+    48.dp
+}
+
+private fun Boolean.spaceBetween() = if (this) {
+    8.dp
+} else {
+    20.dp
+}
+
+private fun Boolean.iconSize() = if (this) {
+    16.dp
+} else {
+    28.dp
+}
+
+@Composable
+private fun Boolean.fontStyle() = if (this) {
+    MaterialTheme.typography.titleSmall
+} else {
+    MaterialTheme.typography.headlineLarge
+}
+
+private fun Boolean.paddingValues() = if (this) {
+    PaddingValues(4.dp)
+} else {
+    PaddingValues(top = 12.dp, bottom = 12.dp, start = 20.dp, end = 20.dp)
 }
 
 @Composable

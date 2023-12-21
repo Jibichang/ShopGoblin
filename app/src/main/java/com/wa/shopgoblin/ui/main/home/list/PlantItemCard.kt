@@ -45,7 +45,7 @@ fun PlantItem(
             .width(200.dp)
             .clickable { onItemClick(plant) }
     ) {
-        PlantImageCard(plant = plant) { item, checked ->
+        PlantImageCardWithFavorite(plant = plant) { item, checked ->
             onFavoriteClick(item, checked)
         }
 
@@ -69,7 +69,7 @@ fun PlantItem(
 }
 
 @Composable
-fun PlantImageCard(
+fun PlantImageCardWithFavorite(
     modifier: Modifier = Modifier,
     plant: Plant,
     onFavoriteClick: (Plant, Boolean) -> Unit = { _, _ -> }
@@ -84,12 +84,9 @@ fun PlantImageCard(
 //            contentDescription = plant.name
 //        )
 
-        AppImage (
-            modifier = modifier
-                .size(200.dp)
-                .clip(RoundedCornerShape(36.dp))
-                .background(color = Grey400),
-            resource = loadImage(LocalContext.current, plant.icon)
+        PlantImageCard (
+            modifier = modifier.size(200.dp),
+            icon = plant.icon
         )
         Box(
             modifier = modifier
@@ -107,6 +104,19 @@ fun PlantImageCard(
             }
         }
     }
+}
+
+@Composable
+fun PlantImageCard(
+    modifier: Modifier = Modifier,
+    icon: String
+) {
+    AppImage(
+        modifier = modifier
+            .clip(RoundedCornerShape(36.dp))
+            .background(color = Grey400),
+        resource = loadImage(LocalContext.current, icon)
+    )
 }
 
 @Composable

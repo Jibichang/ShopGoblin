@@ -14,6 +14,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.wa.shopgoblin.ui.main.cart.CartScreen
+import com.wa.shopgoblin.ui.main.cart.cartList
 import com.wa.shopgoblin.ui.main.home.user.FavoriteScreen
 import com.wa.shopgoblin.ui.main.home.HomeScreen
 import com.wa.shopgoblin.ui.main.home.user.NotificationScreen

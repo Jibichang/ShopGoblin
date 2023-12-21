@@ -7,10 +7,12 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.rememberLazyListState
@@ -75,7 +77,7 @@ fun PlantDetailScreen(
             },
             description = { DescriptionSection(plant.description ?: "") }
         ) { quantity ->
-            AddToCartTab(plant.price) {
+            TotalPriceTab(price = plant.price) {
                 AddToCartButton(enabled = quantity != 0) {
                     println("----------AddToCartButton quantityCount $quantity")
                 }
@@ -115,6 +117,9 @@ fun PlantDetailContent(
                 AdjustQuantityTab {
                     AdjustQuantityButton(quantity = quantityCount)
                 }
+            }
+            item {
+                Spacer(modifier = Modifier.size(16.dp))
             }
         }
         AnimatedVisibility(
@@ -173,7 +178,7 @@ fun DetailScreenPreview() {
                     DescriptionSection(plant.description ?: "")
                 }
             ) { quantity ->
-                AddToCartTab(plant.price) {
+                TotalPriceTab(price = plant.price) {
                     AddToCartButton(enabled = quantity != 0) {
                         println("----------AddToCartButton quantityCount $quantity")
                     }

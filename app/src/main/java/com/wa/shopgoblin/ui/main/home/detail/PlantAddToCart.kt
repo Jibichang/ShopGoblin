@@ -58,14 +58,14 @@ fun AddToCartButton(
 }
 
 @Composable
-fun AddToCartTab(
+fun TotalPriceTab(
+    modifier: Modifier = Modifier,
     price: Double,
     button: @Composable () -> Unit
 ) {
     Row(
-        modifier = Modifier.wrapContentHeight(),
-        horizontalArrangement = Arrangement.Center,
-        verticalAlignment = Alignment.CenterVertically
+        modifier = modifier.wrapContentHeight(),
+        verticalAlignment = Alignment.Top
     ) {
         Column(
             modifier = Modifier.padding(bottom = 32.dp),
